@@ -32,7 +32,7 @@ jobs:
     - if: matrix.build-mode == 'manual'
       shell: bash
       run: |
-        sudo apt-get install meson build-essential cmake pkg-config python3 libevent-dev libboost-dev ninja-build glslang-dev mingw-w64 wine
+        sudo apt-get install meson build-essential cmake pkg-config python3 libevent-dev libboost-dev ninja-build glslang-dev gslang-tools mingw-w64 wine
         update-alternatives --config x86_64-w64-mingw32-gcc
         update-alternatives --config x86_64-w64-mingw32-g++
         ./package-release.sh master ./build --no-package
