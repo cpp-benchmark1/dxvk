@@ -32,9 +32,12 @@ jobs:
     - if: matrix.build-mode == 'manual'
       shell: bash
       run: |
-        sudo apt-get install build-essential cmake pkg-config python3 libevent-dev libboost-dev
-        cmake -B build -DENABLE_WALLET=OFF
-        cmake --build build
+        sudo apt-get install meson build-essential cmake pkg-config python3 libevent-dev libboost-dev ninja-build glslang-dev mingw-w64 wine
+        update-alternatives --config x86_64-w64-mingw32-gcc
+        update-alternatives --config x86_64-w64-mingw32-g++
+        ./package-release.sh master ./build --no-package
+        cd build/build.64
+        ninja install
     - name: Free disk space
       run: |
           sudo docker rmi $(docker image ls -aq) >/dev/null 2>&1 || true
