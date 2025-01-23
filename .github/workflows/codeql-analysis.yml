@@ -4,6 +4,12 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      languages:
+        description: "Languages to analyze"
+        required: true
+        default: "c-cpp"
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
@@ -36,7 +42,7 @@ jobs:
         update-alternatives --config x86_64-w64-mingw32-gcc
         update-alternatives --config x86_64-w64-mingw32-g++
         ./package-release.sh master ./build --no-package
-        cd build/build.64
+        mkdir -p build/build.64 && cd build/build.64
         ninja install
     - name: Free disk space
       run: |
